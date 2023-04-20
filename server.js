@@ -13,31 +13,33 @@ const PostLike = require("./models/PostLike");
 const Post = require("./models/Post");
 
 dotenv.config();
-
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer, {
   cors: {
-    origin: ["http://localhost:3000", "https://post-it-heroku.herokuapp.com"],
+    origin: ["http://localhost:3000"],
   },
 });
 
 io.use(authSocket);
 io.on("connection", (socket) => socketServer(socket));
 
-mongoose.connect(
-  process.env.MONGO_URI,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  () => {
-    console.log("MongoDB connected");
-  }
-);
+mongoose
+  .connect("mongodb://0.0.0.0:27017/sayon_stories")
+  .then(() => {
+    console.log("database connected");
+  })
+  .catch((err) => console.log(err));
+  
+  
+
 
 httpServer.listen(process.env.PORT || 4000, () => {
   console.log("Listening");
 });
-
+app.get("/",(req,res)=>res.send("server listening"));
 app.use(express.json());
 app.use(cors());
+app.use(express.urlencoded({extended:true}))
 app.use("/api/posts", posts);
 app.use("/api/users", users);
 app.use("/api/comments", comments);
@@ -50,3 +52,5 @@ if (process.env.NODE_ENV == "production") {
     res.sendFile(path.join(__dirname, "client/build", "index.html"));
   });
 }
+
+
