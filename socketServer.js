@@ -2,8 +2,10 @@ const jwt = require("jsonwebtoken");
 let users = [];
 
 const authSocket = (socket, next) => {
+  //check for the token
   let token = socket.handshake.auth.token;
 
+  //if theres a token then the user will communicate with another user
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.TOKEN_KEY);
@@ -17,6 +19,7 @@ const authSocket = (socket, next) => {
   }
 };
 
+//event handler
 const socketServer = (socket) => {
   const userId = socket.decoded.userId;
   users.push({ userId, socketId: socket.id });

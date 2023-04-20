@@ -12,6 +12,7 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import "react-icons/ai";
 import "react-icons/ri";
+import Logo from "./img/logo.jpeg";
 import {
   AiFillFileText,
   AiFillHome,
@@ -23,7 +24,7 @@ import { isLoggedIn, logoutUser } from "../helpers/authHelper";
 import UserAvatar from "./UserAvatar";
 import HorizontalStack from "./util/HorizontalStack";
 import { RiContrast2Line } from "react-icons/ri";
-
+import "./Navbar.css";
 const Navbar = () => {
   const navigate = useNavigate();
   const user = isLoggedIn();
@@ -79,10 +80,13 @@ const Navbar = () => {
         spacing={!mobile ? 2 : 0}
       >
         <HorizontalStack>
-          <AiFillFileText
+          <img
+            src={Logo}
+            alt=""
             size={33}
             color={theme.palette.primary.main}
             onClick={() => navigate("/")}
+            style={{ width: "45px", height: "auto" }}
           />
           <Typography
             sx={{ display: mobile ? "none" : "block" }}
@@ -91,7 +95,7 @@ const Navbar = () => {
             color={theme.palette.primary.main}
           >
             {/* <Link to="/" color="inherit"> */}
-              PostIt
+            Stories
             {/* </Link> */}
           </Typography>
         </HorizontalStack>
@@ -123,10 +127,20 @@ const Navbar = () => {
               <IconButton component={Link} to={"/messenger"}>
                 <AiFillMessage />
               </IconButton>
-              <IconButton component={Link}  to={"/users/" + username}>
+              <IconButton component={Link} to={"/users/" + username}>
                 <UserAvatar width={30} height={30} username={user.username} />
               </IconButton>
-              <Button onClick={handleLogout}>Logout</Button>
+             
+                <Button onClick={handleLogout} style={{ color: "#f9f9f9",
+  backgroundColor: "#0063e5",
+  marginBottom: "2px",
+  width: "100%",
+  letterSpacing: "1.5px",
+  fontSize: "14px",
+  padding: "4px 2px",
+  border: "1px solid transparent",
+  borderRadius: "4px"}}>Logout</Button>
+              
             </>
           ) : (
             <>

@@ -1,3 +1,4 @@
+//@sayon
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
@@ -13,14 +14,20 @@ const PostLike = require("./models/PostLike");
 const Post = require("./models/Post");
 
 dotenv.config();
+
 const httpServer = require("http").createServer(app);
+
+//allow collection to a specific host
 const io = require("socket.io")(httpServer, {
   cors: {
     origin: ["http://localhost:3000"],
   },
 });
 
+//adding the middleware authSocket function
 io.use(authSocket);
+
+//sets up the event listener for new WebSocket connections
 io.on("connection", (socket) => socketServer(socket));
 
 mongoose

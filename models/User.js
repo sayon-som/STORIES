@@ -39,6 +39,7 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+//not using any kind of obsene language
 UserSchema.pre("save", function (next) {
   if (filter.isProfane(this.username)) {
     throw new Error("Username cannot contain profanity");

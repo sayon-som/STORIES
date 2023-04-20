@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 const Copyright = () => {
   return (
     <Typography variant="subtitle1" color="text.secondary">
-      Copyright © 2022{" "}
+      Copyright © 2023{" "}
       <Link to="/" color="inherit">
-        PostIt
+        Stories
       </Link>
     </Typography>
   );
